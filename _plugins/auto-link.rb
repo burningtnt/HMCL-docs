@@ -11,6 +11,12 @@ Jekyll::Hooks.register [:pages, :documents], :post_convert do |doc|
   process_uri = lambda do |path|
     uri = Addressable::URI.parse(path)
     if uri&.path && !uri.path&.start_with?(baseurl)
+      puts "Transforming #{uri.path[1..]}, source = "
+      site.each_site_file do |item|
+        print "#{item.name}"
+      end
+      puts "."
+
       uri.path = Liquid::Template.parse("{% link #{uri.path[1..]} %}").render!(liquid_context)
     end
     uri.to_s
