@@ -13,7 +13,7 @@ Jekyll::Hooks.register [:pages, :documents], :post_convert do |doc|
     if uri&.path && !uri.path&.start_with?(baseurl)
       puts "Transforming #{uri.path[1..]}, source = "
       site.each_site_file do |item|
-        print "#{item}"
+        print "#{item.name}"
       end
       puts "."
 
